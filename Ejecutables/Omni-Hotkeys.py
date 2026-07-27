@@ -22,7 +22,10 @@ def launch_build():
     subprocess.Popen([sys.executable, script_path], cwd=IDE_DIR)
 
 def launch_cloud_build():
-    script_path = os.path.join(IDE_DIR, "Ejecutables", "Build-Cloud-UI.py")
+    # Compilador Master con failover: GitHub Actions → Modal.com → Local
+    master = os.path.join(IDE_DIR, "Ejecutables", "Cloud-Compiler-Master.py")
+    legacy = os.path.join(IDE_DIR, "Ejecutables", "Build-Cloud-UI.py")
+    script_path = master if os.path.exists(master) else legacy
     subprocess.Popen([sys.executable, script_path], cwd=IDE_DIR)
 
 def launch_app():
