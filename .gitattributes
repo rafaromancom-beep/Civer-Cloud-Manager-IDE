@@ -1,10 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto eol=lf
-
 # Rust source files
 *.rs text eol=lf
 *.toml text eol=lf
-
 # Web files
 *.ts text eol=lf
 *.tsx text eol=lf
@@ -17,12 +15,10 @@
 *.md text eol=lf
 *.yaml text eol=lf
 *.yml text eol=lf
-
 # Config files
 *.config text eol=lf
 .gitignore text eol=lf
 .gitattributes text eol=lf
-
 # Binary files
 *.png binary
 *.jpg binary
@@ -33,7 +29,16 @@
 *.woff2 binary
 *.ttf binary
 *.eot binary
-*.exe binary
+*.exe filter=lfs diff=lfs merge=lfs -text
 *.dll binary
 *.so binary
 *.dylib binary
+*.db filter=lfs diff=lfs merge=lfs -text
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.vhd filter=lfs diff=lfs merge=lfs -text
+*.sqlite filter=lfs diff=lfs merge=lfs -text
+*.sqlite3 filter=lfs diff=lfs merge=lfs -text
+*.apk filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.iso filter=lfs diff=lfs merge=lfs -text
