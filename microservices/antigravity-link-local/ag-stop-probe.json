@@ -1,25 +1,25 @@
 {
-  "ts": "2026-07-27T09:59:56.011Z",
+  "ts": "2026-07-29T05:19:30.362Z",
   "source": "auto-on-generation-start",
   "contexts": [
     {
       "ctxId": "main",
-      "frameUrl": "https://127.0.0.1:62642/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
-      "totalBtns": 196,
+      "frameUrl": "https://127.0.0.1:51080/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
+      "totalBtns": 186,
       "inputBoxFound": true,
       "inputBoxBtns": [
         {
           "aria": "",
           "title": "",
           "cls": "flex items-center justify-between cursor-pointer h-6 shrink-0 text-secondary-foreground hover:text-f",
-          "text": "2 tasks running",
-          "innerHTML": "<span class=\"text-sm\">2 tasks running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-15",
+          "text": "1 task running",
+          "innerHTML": "<span class=\"text-sm\">1 task running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-150",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 471,
+            "x": 471,
+            "y": 428,
             "w": 742,
             "h": 24
           }
@@ -28,14 +28,14 @@
           "aria": "",
           "title": "",
           "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "python Ejecutables\\Omni-Hotkeys.py",
+          "text": "powershell.exe -ExecutionPolicy Bypass -File \"C:\\ProyectoCiv",
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 501,
+            "x": 471,
+            "y": 458,
             "w": 742,
             "h": 20
           }
@@ -48,13 +48,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "stop-task-1095",
+            "data-tooltip-id": "stop-task-3889",
             "data-tooltip-place": "left"
           },
           "visible": true,
           "rect": {
-            "x": 1157,
-            "y": 499,
+            "x": 1187,
+            "y": 456,
             "w": 24,
             "h": 24
           }
@@ -62,36 +62,17 @@
         {
           "aria": "",
           "title": "",
-          "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "Stop-Process -Name \"python\" -Force -ErrorAction SilentlyCont",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
+          "cls": "absolute -right-1 -top-1 rounded-full bg-muted p-0.5 opacity-0 hover:bg-secondary group-hover:opacit",
+          "text": "",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"h-3 w-3 text-secondary-foreground\"><path d=\"M256-213.85L213.85-256l224-224l-224-224L2",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 527,
-            "w": 742,
-            "h": 20
-          }
-        },
-        {
-          "aria": "",
-          "title": "",
-          "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
-          "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
-          "hasSvg": true,
-          "dataAttrs": {
-            "data-tooltip-id": "stop-task-1092",
-            "data-tooltip-place": "left"
-          },
-          "visible": true,
-          "rect": {
-            "x": 1157,
-            "y": 525,
-            "w": 24,
-            "h": 24
+            "x": 488,
+            "y": 495,
+            "w": 16,
+            "h": 16
           }
         },
         {
@@ -102,13 +83,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"w-4 h-4\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path><",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r82:",
+            "data-tooltip-id": ":r97:",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 435,
-            "y": 677,
+            "x": 465,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -121,14 +102,14 @@
           "innerHTML": "<span class=\"min-w-0 select-none overflow-hidden text-ellipsis whitespace-nowrap text-xs text-secondary-foreground\">Gemini 3.1 Pro (High)</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" heigh",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r8b:",
+            "data-tooltip-id": ":r9g:",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 464,
-            "y": 677,
+            "x": 494,
+            "y": 578,
             "w": 143,
             "h": 28
           }
@@ -146,8 +127,8 @@
           },
           "visible": true,
           "rect": {
-            "x": 1161,
-            "y": 677,
+            "x": 1191,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -291,7 +272,7 @@
           "rect": {
             "x": 8,
             "y": 248,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -305,7 +286,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 252,
             "w": 24,
             "h": 24
@@ -319,12 +300,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "88de0da3-3d6f-4489-8c28-34e096d25d46",
+            "data-tooltip-id": "c1ff88fb-dfe8-4da5-83de-403ea3dfdff9",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 252,
             "w": 24,
             "h": 24
@@ -338,12 +319,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2216bae8-06b3-401f-a0ad-fcfc0b2d4ca8",
+            "data-tooltip-id": "4451b36a-1a4e-4d0d-ad41-46c8a0383281",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 252,
             "w": 24,
             "h": 24
@@ -361,7 +342,7 @@
           "rect": {
             "x": 8,
             "y": 299,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -375,7 +356,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 303,
             "w": 24,
             "h": 24
@@ -389,12 +370,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18897d8d-4110-4bca-9fc1-c6ed1a1eac7e",
+            "data-tooltip-id": "81e6ade5-9079-42a3-9bef-9fac664c98c6",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 303,
             "w": 24,
             "h": 24
@@ -408,12 +389,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "48480cf7-db15-4a62-bf6c-7545f6d043d7",
+            "data-tooltip-id": "783333ca-868a-4cab-afee-9aad0430f86f",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 303,
             "w": 24,
             "h": 24
@@ -431,7 +412,7 @@
           "rect": {
             "x": 8,
             "y": 350,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -445,7 +426,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 354,
             "w": 24,
             "h": 24
@@ -459,12 +440,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "5f239258-ccc3-4681-83da-93bbce7646f3",
+            "data-tooltip-id": "5ae6eda8-7db9-4158-ba8b-bff2234b6719",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 354,
             "w": 24,
             "h": 24
@@ -478,12 +459,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2572c43c-b2d4-4659-a7b9-c629f211d452",
+            "data-tooltip-id": "af6fb2f2-0d46-4dcc-b849-763c24c785d0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 354,
             "w": 24,
             "h": 24
@@ -497,12 +478,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M411.15-260v-60H548.46v60H411.15Zm-155-190v-60H703.46v60H256.16ZM140-640v-60H820v60",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e1b06715-a6dd-4757-8bca-e6bca2ebdf90",
+            "data-tooltip-id": "da34a67d-6d02-45ac-8d9b-ae64ceceb743",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 185,
+            "x": 183,
             "y": 428,
             "w": 20,
             "h": 20
@@ -516,13 +497,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"><mask id=\"mask0_1267_594\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" style=\"mask-type:",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d72db7e5-058a-4135-8e50-5cc2c4d75cb7",
+            "data-tooltip-id": "354e2836-1ecc-4dbb-a81e-4c0d6282dcd9",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 428,
             "w": 20,
             "h": 20
@@ -542,7 +523,7 @@
           "rect": {
             "x": 8,
             "y": 460,
-            "w": 225,
+            "w": 223,
             "h": 32
           }
         },
@@ -554,7 +535,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M387.69-100L372.46-221.85q-16.08-5.38-32.96-15.08t-30.19-20.77L196.46-210L104.16-37",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "70ca8c68-402a-4ec8-b940-26230aa347a4",
+            "data-tooltip-id": "f4392b13-3e76-4a58-92ea-f3c37685fd7c",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -573,7 +554,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path></svg>",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f748ede6-c9f4-480c-bfbc-523662ddd2d6",
+            "data-tooltip-id": "c1d5c526-527d-4fe4-9c6e-85cc789d91ba",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -588,7 +569,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación De Planes Antigravity",
+          "text": "Recuperación De Planes Antigravity @keyframes dot-bounce { 0",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity\" data-testid=\"convo-pill-e776d353-12a4-474",
           "hasSvg": true,
           "dataAttrs": {},
@@ -596,7 +577,7 @@
           "rect": {
             "x": 30,
             "y": 493,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -610,7 +591,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 497,
             "w": 24,
             "h": 24
@@ -624,12 +605,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "3c7dc106-1ac8-44d6-9291-2d70a6ccf739",
+            "data-tooltip-id": "8da384e7-fddd-4344-9d6e-1109a7dd6db0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 497,
             "w": 24,
             "h": 24
@@ -640,15 +621,15 @@
           "title": "",
           "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
           "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M330-330H630V-630H330v300ZM480.07-100q-78.84,0-148.2-29.92T211.18-211.13T129.93-331",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d317ad1b-f0a1-4f29-94ab-ef3fd2768d1e",
+            "data-tooltip-id": "fe802f74-7ee3-47c2-92de-1e25d3583687",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 497,
             "w": 24,
             "h": 24
@@ -658,7 +639,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación Y Soporte Antigravity 13h",
+          "text": "Recuperación Y Soporte Antigravity 12d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -666,7 +647,7 @@
           "rect": {
             "x": 30,
             "y": 526,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -680,7 +661,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 530,
             "w": 24,
             "h": 24
@@ -694,12 +675,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18fe42e9-3b22-4512-8c05-a39408704e6a",
+            "data-tooltip-id": "960dd5cc-b51c-487e-b401-3db9643f10eb",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 530,
             "w": 24,
             "h": 24
@@ -713,12 +694,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "8a55644b-7564-4bde-b45d-d80c68658c91",
+            "data-tooltip-id": "18bb8c15-7677-47e8-b774-e9146fc14a39",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 530,
             "w": 24,
             "h": 24
@@ -728,7 +709,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Desarrollo Sistema QR Personalizado4d",
+          "text": "Desarrollo Sistema QR Personalizado5d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -736,7 +717,7 @@
           "rect": {
             "x": 30,
             "y": 559,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -750,7 +731,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 563,
             "w": 24,
             "h": 24
@@ -764,12 +745,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b722be68-28c0-45a4-a03d-54359fee2b03",
+            "data-tooltip-id": "9adcdc6c-4621-42f0-bfa3-40d293b4f57c",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 563,
             "w": 24,
             "h": 24
@@ -783,12 +764,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e23f9031-4adc-4f5a-aa4f-1d4578df917f",
+            "data-tooltip-id": "4f1fff5e-2261-48b8-95de-67c89765d331",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 563,
             "w": 24,
             "h": 24
@@ -798,7 +779,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperar Conversaciones Archivadas4d",
+          "text": "Recuperar Conversaciones Archivadas6d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -806,7 +787,7 @@
           "rect": {
             "x": 30,
             "y": 592,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -820,7 +801,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 596,
             "w": 24,
             "h": 24
@@ -834,12 +815,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f0c641a3-dbb2-49e5-9a70-97129c84cfc1",
+            "data-tooltip-id": "3c7f85a3-3f13-4a49-b0f5-2e2fdfed6627",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 596,
             "w": 24,
             "h": 24
@@ -853,12 +834,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b8e4852a-97b2-44f3-b3a3-f6af66b4dbf6",
+            "data-tooltip-id": "d7a744f1-4ce1-47d9-bc17-f98ab2b08a81",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 596,
             "w": 24,
             "h": 24
@@ -868,22 +849,22 @@
     },
     {
       "ctxId": 2,
-      "frameUrl": "https://127.0.0.1:62642/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
-      "totalBtns": 196,
+      "frameUrl": "https://127.0.0.1:51080/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
+      "totalBtns": 186,
       "inputBoxFound": true,
       "inputBoxBtns": [
         {
           "aria": "",
           "title": "",
           "cls": "flex items-center justify-between cursor-pointer h-6 shrink-0 text-secondary-foreground hover:text-f",
-          "text": "2 tasks running",
-          "innerHTML": "<span class=\"text-sm\">2 tasks running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-15",
+          "text": "1 task running",
+          "innerHTML": "<span class=\"text-sm\">1 task running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-150",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 471,
+            "x": 471,
+            "y": 428,
             "w": 742,
             "h": 24
           }
@@ -892,14 +873,14 @@
           "aria": "",
           "title": "",
           "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "python Ejecutables\\Omni-Hotkeys.py",
+          "text": "powershell.exe -ExecutionPolicy Bypass -File \"C:\\ProyectoCiv",
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 501,
+            "x": 471,
+            "y": 458,
             "w": 742,
             "h": 20
           }
@@ -912,13 +893,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "stop-task-1095",
+            "data-tooltip-id": "stop-task-3889",
             "data-tooltip-place": "left"
           },
           "visible": true,
           "rect": {
-            "x": 1157,
-            "y": 499,
+            "x": 1187,
+            "y": 456,
             "w": 24,
             "h": 24
           }
@@ -926,36 +907,17 @@
         {
           "aria": "",
           "title": "",
-          "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "Stop-Process -Name \"python\" -Force -ErrorAction SilentlyCont",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
+          "cls": "absolute -right-1 -top-1 rounded-full bg-muted p-0.5 opacity-0 hover:bg-secondary group-hover:opacit",
+          "text": "",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"h-3 w-3 text-secondary-foreground\"><path d=\"M256-213.85L213.85-256l224-224l-224-224L2",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 527,
-            "w": 742,
-            "h": 20
-          }
-        },
-        {
-          "aria": "",
-          "title": "",
-          "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
-          "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
-          "hasSvg": true,
-          "dataAttrs": {
-            "data-tooltip-id": "stop-task-1092",
-            "data-tooltip-place": "left"
-          },
-          "visible": true,
-          "rect": {
-            "x": 1157,
-            "y": 525,
-            "w": 24,
-            "h": 24
+            "x": 488,
+            "y": 495,
+            "w": 16,
+            "h": 16
           }
         },
         {
@@ -966,13 +928,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"w-4 h-4\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path><",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r82:",
+            "data-tooltip-id": ":r97:",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 435,
-            "y": 677,
+            "x": 465,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -985,14 +947,14 @@
           "innerHTML": "<span class=\"min-w-0 select-none overflow-hidden text-ellipsis whitespace-nowrap text-xs text-secondary-foreground\">Gemini 3.1 Pro (High)</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" heigh",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r8b:",
+            "data-tooltip-id": ":r9g:",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 464,
-            "y": 677,
+            "x": 494,
+            "y": 578,
             "w": 143,
             "h": 28
           }
@@ -1010,8 +972,8 @@
           },
           "visible": true,
           "rect": {
-            "x": 1161,
-            "y": 677,
+            "x": 1191,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -1155,7 +1117,7 @@
           "rect": {
             "x": 8,
             "y": 248,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -1169,7 +1131,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 252,
             "w": 24,
             "h": 24
@@ -1183,12 +1145,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "88de0da3-3d6f-4489-8c28-34e096d25d46",
+            "data-tooltip-id": "c1ff88fb-dfe8-4da5-83de-403ea3dfdff9",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 252,
             "w": 24,
             "h": 24
@@ -1202,12 +1164,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2216bae8-06b3-401f-a0ad-fcfc0b2d4ca8",
+            "data-tooltip-id": "4451b36a-1a4e-4d0d-ad41-46c8a0383281",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 252,
             "w": 24,
             "h": 24
@@ -1225,7 +1187,7 @@
           "rect": {
             "x": 8,
             "y": 299,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -1239,7 +1201,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 303,
             "w": 24,
             "h": 24
@@ -1253,12 +1215,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18897d8d-4110-4bca-9fc1-c6ed1a1eac7e",
+            "data-tooltip-id": "81e6ade5-9079-42a3-9bef-9fac664c98c6",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 303,
             "w": 24,
             "h": 24
@@ -1272,12 +1234,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "48480cf7-db15-4a62-bf6c-7545f6d043d7",
+            "data-tooltip-id": "783333ca-868a-4cab-afee-9aad0430f86f",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 303,
             "w": 24,
             "h": 24
@@ -1295,7 +1257,7 @@
           "rect": {
             "x": 8,
             "y": 350,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -1309,7 +1271,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 354,
             "w": 24,
             "h": 24
@@ -1323,12 +1285,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "5f239258-ccc3-4681-83da-93bbce7646f3",
+            "data-tooltip-id": "5ae6eda8-7db9-4158-ba8b-bff2234b6719",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 354,
             "w": 24,
             "h": 24
@@ -1342,12 +1304,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2572c43c-b2d4-4659-a7b9-c629f211d452",
+            "data-tooltip-id": "af6fb2f2-0d46-4dcc-b849-763c24c785d0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 354,
             "w": 24,
             "h": 24
@@ -1361,12 +1323,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M411.15-260v-60H548.46v60H411.15Zm-155-190v-60H703.46v60H256.16ZM140-640v-60H820v60",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e1b06715-a6dd-4757-8bca-e6bca2ebdf90",
+            "data-tooltip-id": "da34a67d-6d02-45ac-8d9b-ae64ceceb743",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 185,
+            "x": 183,
             "y": 428,
             "w": 20,
             "h": 20
@@ -1380,13 +1342,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"><mask id=\"mask0_1267_594\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" style=\"mask-type:",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d72db7e5-058a-4135-8e50-5cc2c4d75cb7",
+            "data-tooltip-id": "354e2836-1ecc-4dbb-a81e-4c0d6282dcd9",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 428,
             "w": 20,
             "h": 20
@@ -1406,7 +1368,7 @@
           "rect": {
             "x": 8,
             "y": 460,
-            "w": 225,
+            "w": 223,
             "h": 32
           }
         },
@@ -1418,7 +1380,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M387.69-100L372.46-221.85q-16.08-5.38-32.96-15.08t-30.19-20.77L196.46-210L104.16-37",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "70ca8c68-402a-4ec8-b940-26230aa347a4",
+            "data-tooltip-id": "f4392b13-3e76-4a58-92ea-f3c37685fd7c",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -1437,7 +1399,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path></svg>",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f748ede6-c9f4-480c-bfbc-523662ddd2d6",
+            "data-tooltip-id": "c1d5c526-527d-4fe4-9c6e-85cc789d91ba",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -1452,7 +1414,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación De Planes Antigravity",
+          "text": "Recuperación De Planes Antigravity @keyframes dot-bounce { 0",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity\" data-testid=\"convo-pill-e776d353-12a4-474",
           "hasSvg": true,
           "dataAttrs": {},
@@ -1460,7 +1422,7 @@
           "rect": {
             "x": 30,
             "y": 493,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -1474,7 +1436,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 497,
             "w": 24,
             "h": 24
@@ -1488,12 +1450,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "3c7dc106-1ac8-44d6-9291-2d70a6ccf739",
+            "data-tooltip-id": "8da384e7-fddd-4344-9d6e-1109a7dd6db0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 497,
             "w": 24,
             "h": 24
@@ -1504,15 +1466,15 @@
           "title": "",
           "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
           "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M330-330H630V-630H330v300ZM480.07-100q-78.84,0-148.2-29.92T211.18-211.13T129.93-331",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d317ad1b-f0a1-4f29-94ab-ef3fd2768d1e",
+            "data-tooltip-id": "fe802f74-7ee3-47c2-92de-1e25d3583687",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 497,
             "w": 24,
             "h": 24
@@ -1522,7 +1484,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación Y Soporte Antigravity 13h",
+          "text": "Recuperación Y Soporte Antigravity 12d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -1530,7 +1492,7 @@
           "rect": {
             "x": 30,
             "y": 526,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -1544,7 +1506,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 530,
             "w": 24,
             "h": 24
@@ -1558,12 +1520,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18fe42e9-3b22-4512-8c05-a39408704e6a",
+            "data-tooltip-id": "960dd5cc-b51c-487e-b401-3db9643f10eb",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 530,
             "w": 24,
             "h": 24
@@ -1577,12 +1539,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "8a55644b-7564-4bde-b45d-d80c68658c91",
+            "data-tooltip-id": "18bb8c15-7677-47e8-b774-e9146fc14a39",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 530,
             "w": 24,
             "h": 24
@@ -1592,7 +1554,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Desarrollo Sistema QR Personalizado4d",
+          "text": "Desarrollo Sistema QR Personalizado5d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -1600,7 +1562,7 @@
           "rect": {
             "x": 30,
             "y": 559,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -1614,7 +1576,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 563,
             "w": 24,
             "h": 24
@@ -1628,12 +1590,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b722be68-28c0-45a4-a03d-54359fee2b03",
+            "data-tooltip-id": "9adcdc6c-4621-42f0-bfa3-40d293b4f57c",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 563,
             "w": 24,
             "h": 24
@@ -1647,12 +1609,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e23f9031-4adc-4f5a-aa4f-1d4578df917f",
+            "data-tooltip-id": "4f1fff5e-2261-48b8-95de-67c89765d331",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 563,
             "w": 24,
             "h": 24
@@ -1662,7 +1624,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperar Conversaciones Archivadas4d",
+          "text": "Recuperar Conversaciones Archivadas6d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -1670,7 +1632,7 @@
           "rect": {
             "x": 30,
             "y": 592,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -1684,7 +1646,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 596,
             "w": 24,
             "h": 24
@@ -1698,12 +1660,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f0c641a3-dbb2-49e5-9a70-97129c84cfc1",
+            "data-tooltip-id": "3c7f85a3-3f13-4a49-b0f5-2e2fdfed6627",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 596,
             "w": 24,
             "h": 24
@@ -1717,12 +1679,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b8e4852a-97b2-44f3-b3a3-f6af66b4dbf6",
+            "data-tooltip-id": "d7a744f1-4ce1-47d9-bc17-f98ab2b08a81",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 596,
             "w": 24,
             "h": 24
@@ -1732,22 +1694,22 @@
     },
     {
       "ctxId": 1,
-      "frameUrl": "https://127.0.0.1:62642/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
-      "totalBtns": 196,
+      "frameUrl": "https://127.0.0.1:51080/c/e776d353-12a4-4740-92d9-9dbe1a8a1956?section=701920fa-d249-44e4-9a86-0308759b8637",
+      "totalBtns": 186,
       "inputBoxFound": true,
       "inputBoxBtns": [
         {
           "aria": "",
           "title": "",
           "cls": "flex items-center justify-between cursor-pointer h-6 shrink-0 text-secondary-foreground hover:text-f",
-          "text": "2 tasks running",
-          "innerHTML": "<span class=\"text-sm\">2 tasks running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-15",
+          "text": "1 task running",
+          "innerHTML": "<span class=\"text-sm\">1 task running</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 transition-transform duration-150",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 471,
+            "x": 471,
+            "y": 428,
             "w": 742,
             "h": 24
           }
@@ -1756,14 +1718,14 @@
           "aria": "",
           "title": "",
           "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "python Ejecutables\\Omni-Hotkeys.py",
+          "text": "powershell.exe -ExecutionPolicy Bypass -File \"C:\\ProyectoCiv",
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 501,
+            "x": 471,
+            "y": 458,
             "w": 742,
             "h": 20
           }
@@ -1776,13 +1738,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "stop-task-1095",
+            "data-tooltip-id": "stop-task-3889",
             "data-tooltip-place": "left"
           },
           "visible": true,
           "rect": {
-            "x": 1157,
-            "y": 499,
+            "x": 1187,
+            "y": 456,
             "w": 24,
             "h": 24
           }
@@ -1790,36 +1752,17 @@
         {
           "aria": "",
           "title": "",
-          "cls": "flex items-center gap-1.5 flex-1 min-w-0 text-left border-none bg-transparent outline-none cursor-po",
-          "text": "Stop-Process -Name \"python\" -Force -ErrorAction SilentlyCont",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"shrink-0 animate-spin opacity-50\"><path d=\"M332.55-129.9q-69.29-29.9-121.02-81.63T129",
+          "cls": "absolute -right-1 -top-1 rounded-full bg-muted p-0.5 opacity-0 hover:bg-secondary group-hover:opacit",
+          "text": "",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"h-3 w-3 text-secondary-foreground\"><path d=\"M256-213.85L213.85-256l224-224l-224-224L2",
           "hasSvg": true,
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 441,
-            "y": 527,
-            "w": 742,
-            "h": 20
-          }
-        },
-        {
-          "aria": "",
-          "title": "",
-          "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
-          "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"text-secondary-foreground hover:text-foreground transition-colors\"><path d=\"M330-330H",
-          "hasSvg": true,
-          "dataAttrs": {
-            "data-tooltip-id": "stop-task-1092",
-            "data-tooltip-place": "left"
-          },
-          "visible": true,
-          "rect": {
-            "x": 1157,
-            "y": 525,
-            "w": 24,
-            "h": 24
+            "x": 488,
+            "y": 495,
+            "w": 16,
+            "h": 16
           }
         },
         {
@@ -1830,13 +1773,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\" class=\"w-4 h-4\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path><",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r82:",
+            "data-tooltip-id": ":r97:",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 435,
-            "y": 677,
+            "x": 465,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -1849,14 +1792,14 @@
           "innerHTML": "<span class=\"min-w-0 select-none overflow-hidden text-ellipsis whitespace-nowrap text-xs text-secondary-foreground\">Gemini 3.1 Pro (High)</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" heigh",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": ":r8b:",
+            "data-tooltip-id": ":r9g:",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 464,
-            "y": 677,
+            "x": 494,
+            "y": 578,
             "w": 143,
             "h": 28
           }
@@ -1874,8 +1817,8 @@
           },
           "visible": true,
           "rect": {
-            "x": 1161,
-            "y": 677,
+            "x": 1191,
+            "y": 578,
             "w": 28,
             "h": 28
           }
@@ -2019,7 +1962,7 @@
           "rect": {
             "x": 8,
             "y": 248,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -2033,7 +1976,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 252,
             "w": 24,
             "h": 24
@@ -2047,12 +1990,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "88de0da3-3d6f-4489-8c28-34e096d25d46",
+            "data-tooltip-id": "c1ff88fb-dfe8-4da5-83de-403ea3dfdff9",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 252,
             "w": 24,
             "h": 24
@@ -2066,12 +2009,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2216bae8-06b3-401f-a0ad-fcfc0b2d4ca8",
+            "data-tooltip-id": "4451b36a-1a4e-4d0d-ad41-46c8a0383281",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 252,
             "w": 24,
             "h": 24
@@ -2089,7 +2032,7 @@
           "rect": {
             "x": 8,
             "y": 299,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -2103,7 +2046,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 303,
             "w": 24,
             "h": 24
@@ -2117,12 +2060,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18897d8d-4110-4bca-9fc1-c6ed1a1eac7e",
+            "data-tooltip-id": "81e6ade5-9079-42a3-9bef-9fac664c98c6",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 303,
             "w": 24,
             "h": 24
@@ -2136,12 +2079,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "48480cf7-db15-4a62-bf6c-7545f6d043d7",
+            "data-tooltip-id": "783333ca-868a-4cab-afee-9aad0430f86f",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 303,
             "w": 24,
             "h": 24
@@ -2159,7 +2102,7 @@
           "rect": {
             "x": 8,
             "y": 350,
-            "w": 225,
+            "w": 223,
             "h": 50
           }
         },
@@ -2173,7 +2116,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 354,
             "w": 24,
             "h": 24
@@ -2187,12 +2130,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M660-820v60H620v307l-60-60V-760H400v87l-64.31-64.31l-20.31-43H300V-820H660ZM480-90l",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "5f239258-ccc3-4681-83da-93bbce7646f3",
+            "data-tooltip-id": "5ae6eda8-7db9-4158-ba8b-bff2234b6719",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 354,
             "w": 24,
             "h": 24
@@ -2206,12 +2149,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "2572c43c-b2d4-4659-a7b9-c629f211d452",
+            "data-tooltip-id": "af6fb2f2-0d46-4dcc-b849-763c24c785d0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 354,
             "w": 24,
             "h": 24
@@ -2225,12 +2168,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M411.15-260v-60H548.46v60H411.15Zm-155-190v-60H703.46v60H256.16ZM140-640v-60H820v60",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e1b06715-a6dd-4757-8bca-e6bca2ebdf90",
+            "data-tooltip-id": "da34a67d-6d02-45ac-8d9b-ae64ceceb743",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 185,
+            "x": 183,
             "y": 428,
             "w": 20,
             "h": 20
@@ -2244,13 +2187,13 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"><mask id=\"mask0_1267_594\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" style=\"mask-type:",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d72db7e5-058a-4135-8e50-5cc2c4d75cb7",
+            "data-tooltip-id": "354e2836-1ecc-4dbb-a81e-4c0d6282dcd9",
             "data-base-ui-click-trigger": "",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 428,
             "w": 20,
             "h": 20
@@ -2270,7 +2213,7 @@
           "rect": {
             "x": 8,
             "y": 460,
-            "w": 225,
+            "w": 223,
             "h": 32
           }
         },
@@ -2282,7 +2225,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M387.69-100L372.46-221.85q-16.08-5.38-32.96-15.08t-30.19-20.77L196.46-210L104.16-37",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "70ca8c68-402a-4ec8-b940-26230aa347a4",
+            "data-tooltip-id": "f4392b13-3e76-4a58-92ea-f3c37685fd7c",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -2301,7 +2244,7 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M450-450H220v-60H450V-740h60v230H740v60H510v230H450V-450Z\"></path></svg>",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f748ede6-c9f4-480c-bfbc-523662ddd2d6",
+            "data-tooltip-id": "c1d5c526-527d-4fe4-9c6e-85cc789d91ba",
             "data-tooltip-place": "top"
           },
           "visible": false,
@@ -2316,7 +2259,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación De Planes Antigravity",
+          "text": "Recuperación De Planes Antigravity @keyframes dot-bounce { 0",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity\" data-testid=\"convo-pill-e776d353-12a4-474",
           "hasSvg": true,
           "dataAttrs": {},
@@ -2324,7 +2267,7 @@
           "rect": {
             "x": 30,
             "y": 493,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -2338,7 +2281,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 497,
             "w": 24,
             "h": 24
@@ -2352,12 +2295,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "3c7dc106-1ac8-44d6-9291-2d70a6ccf739",
+            "data-tooltip-id": "8da384e7-fddd-4344-9d6e-1109a7dd6db0",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 497,
             "w": 24,
             "h": 24
@@ -2368,15 +2311,15 @@
           "title": "",
           "cls": "inline-flex items-center font-medium transition-colors select-none outline-none cursor-pointer justi",
           "text": "",
-          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M330-330H630V-630H330v300ZM480.07-100q-78.84,0-148.2-29.92T211.18-211.13T129.93-331",
+          "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "d317ad1b-f0a1-4f29-94ab-ef3fd2768d1e",
+            "data-tooltip-id": "fe802f74-7ee3-47c2-92de-1e25d3583687",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 497,
             "w": 24,
             "h": 24
@@ -2386,7 +2329,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperación Y Soporte Antigravity 13h",
+          "text": "Recuperación Y Soporte Antigravity 12d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -2394,7 +2337,7 @@
           "rect": {
             "x": 30,
             "y": 526,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -2408,7 +2351,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 530,
             "w": 24,
             "h": 24
@@ -2422,12 +2365,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "18fe42e9-3b22-4512-8c05-a39408704e6a",
+            "data-tooltip-id": "960dd5cc-b51c-487e-b401-3db9643f10eb",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 530,
             "w": 24,
             "h": 24
@@ -2441,12 +2384,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "8a55644b-7564-4bde-b45d-d80c68658c91",
+            "data-tooltip-id": "18bb8c15-7677-47e8-b774-e9146fc14a39",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 530,
             "w": 24,
             "h": 24
@@ -2456,7 +2399,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Desarrollo Sistema QR Personalizado4d",
+          "text": "Desarrollo Sistema QR Personalizado5d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -2464,7 +2407,7 @@
           "rect": {
             "x": 30,
             "y": 559,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -2478,7 +2421,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 563,
             "w": 24,
             "h": 24
@@ -2492,12 +2435,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b722be68-28c0-45a4-a03d-54359fee2b03",
+            "data-tooltip-id": "9adcdc6c-4621-42f0-bfa3-40d293b4f57c",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 563,
             "w": 24,
             "h": 24
@@ -2511,12 +2454,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "e23f9031-4adc-4f5a-aa4f-1d4578df917f",
+            "data-tooltip-id": "4f1fff5e-2261-48b8-95de-67c89765d331",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 563,
             "w": 24,
             "h": 24
@@ -2526,7 +2469,7 @@
           "aria": "",
           "title": "",
           "cls": "select-none cursor-pointer rounded-lg min-h-[32px] py-1.5 flex flex-row gap-1 items-center justify-b",
-          "text": "Recuperar Conversaciones Archivadas4d",
+          "text": "Recuperar Conversaciones Archivadas6d",
           "innerHTML": "<div class=\"flex flex-col grow min-w-0\"><div class=\"flex items-center gap-1.5 w-full\"><span class=\"truncate inline-block text-sm text-left transition-opacity text-secondary-foreground group-hover:text",
           "hasSvg": true,
           "dataAttrs": {},
@@ -2534,7 +2477,7 @@
           "rect": {
             "x": 30,
             "y": 592,
-            "w": 203,
+            "w": 201,
             "h": 32
           }
         },
@@ -2548,7 +2491,7 @@
           "dataAttrs": {},
           "visible": true,
           "rect": {
-            "x": 159,
+            "x": 157,
             "y": 596,
             "w": 24,
             "h": 24
@@ -2562,12 +2505,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M620-471.54L691.54-400v60H510v220L480-90l-30-30V-340H268.46v-60L340-471.54V-760H300",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "f0c641a3-dbb2-49e5-9a70-97129c84cfc1",
+            "data-tooltip-id": "3c7f85a3-3f13-4a49-b0f5-2e2fdfed6627",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 184,
+            "x": 182,
             "y": 596,
             "w": 24,
             "h": 24
@@ -2581,12 +2524,12 @@
           "innerHTML": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 -960 960 960\" fill=\"currentColor\"><path d=\"M480-256.16L626.15-402.31L584-444.46l-74,74v-178H450v178l-74-74l-42.15,42.15L480-25",
           "hasSvg": true,
           "dataAttrs": {
-            "data-tooltip-id": "b8e4852a-97b2-44f3-b3a3-f6af66b4dbf6",
+            "data-tooltip-id": "d7a744f1-4ce1-47d9-bc17-f98ab2b08a81",
             "data-tooltip-place": "top"
           },
           "visible": true,
           "rect": {
-            "x": 209,
+            "x": 207,
             "y": 596,
             "w": 24,
             "h": 24
