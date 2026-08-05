@@ -11,13 +11,13 @@ use tokio_util::io::ReaderStream;
 
 /// Devuelve el ejecutable principal
 async fn download_release() -> Result<impl IntoResponse, StatusCode> {
-    let file_path = Path::new("C:\\Program Files\\antigravity.civer.cloud\\antigravity_tools.exe");
+    let file_path = Path::new("C:\\Program Files\\antigravity.civer.cloud\\civer_cloud_manager_ide_5_1.exe");
     
     // Si no existe ahí, buscar en target/release (para desarrollo)
     let path = if file_path.exists() {
         file_path.to_path_buf()
     } else {
-        Path::new("target\\release\\antigravity_tools.exe").to_path_buf()
+        Path::new("target\\release\\civer_cloud_manager_ide_5_1.exe").to_path_buf()
     };
 
     if !path.exists() {
@@ -37,7 +37,7 @@ async fn download_release() -> Result<impl IntoResponse, StatusCode> {
         (header::CONTENT_TYPE, "application/octet-stream"),
         (
             header::CONTENT_DISPOSITION,
-            "attachment; filename=\"antigravity_tools.exe\"",
+            "attachment; filename=\"civer_cloud_manager_ide_5_1.exe\"",
         ),
     ];
 

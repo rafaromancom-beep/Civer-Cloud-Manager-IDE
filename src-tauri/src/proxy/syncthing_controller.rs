@@ -103,9 +103,9 @@ impl SyncthingController {
             }
         });
 
-        // [FIX] Phase 5: Add accounts database (.antigravity_tools) to the mesh synchronization
+        // [FIX] Phase 5: Add accounts database (.civer_cloud_manager_ide_5_1) to the mesh synchronization
         let accounts_id = "antigravity-accounts-mesh";
-        let accounts_path = format!(r"{}\.antigravity_tools", app_dir);
+        let accounts_path = format!(r"{}\.civer_cloud_manager_ide_5_1", app_dir);
         let accounts_folder = json!({
             "id": accounts_id,
             "label": "Antigravity Accounts",

@@ -1362,7 +1362,7 @@ pub async fn uninstall_program(app_handle: tauri::AppHandle) -> Result<(), Strin
     {
         let script_path = std::env::temp_dir().join("uninstall_antigravity.ps1");
         let script = r#"
-Stop-Process -Name "antigravity_tools" -Force -ErrorAction SilentlyContinue
+Stop-Process -Name "civer_cloud_manager_ide_5_1" -Force -ErrorAction SilentlyContinue
 Stop-Process -Name "antigravity.civer.cloud" -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 Remove-Item -Path "$env:LOCALAPPDATA\cloud.civer.antigravity" -Recurse -Force -ErrorAction SilentlyContinue

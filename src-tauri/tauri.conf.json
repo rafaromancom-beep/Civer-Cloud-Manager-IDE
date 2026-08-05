@@ -13,7 +13,7 @@
     "withGlobalTauri": false,
     "windows": [
       {
-        "title": "Antigravity Manager Civer Cloud",
+        "title": "Civer Cloud Manager IDE 5.1 (Bootstrapper & Zero-Friction UAC)",
         "width": 1024,
         "height": 700,
         "decorations": true,
@@ -28,7 +28,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["nsis"],
     "createUpdaterArtifacts": true,
     "resources": [
       "assets/ai_brain/**/*"
