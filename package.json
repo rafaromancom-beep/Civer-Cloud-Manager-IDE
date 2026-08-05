@@ -1,7 +1,7 @@
 {
-  "version": "4.4.7",
-  "name": "antigravity-tools",
-  "description": "Antigravity Tools",
+  "version": "5.1.0",
+  "name": "civer-cloud-manager-ide-5.1",
+  "description": "Civer Cloud Manager IDE 5.1 (Bootstrapper & Zero-Friction UAC)",
   "type": "module",
   "private": true,
   "scripts": {

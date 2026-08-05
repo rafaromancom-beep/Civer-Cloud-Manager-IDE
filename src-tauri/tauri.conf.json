@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Antigravity Manager Civer Cloud",
-  "version": "4.4.7",
-  "identifier": "cloud.civer.antigravity",
+  "productName": "Civer Cloud Manager IDE 5.1 (Bootstrapper & Zero-Friction UAC)",
+  "version": "5.1.0",
+  "identifier": "cloud.civer.manager",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

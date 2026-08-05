@@ -23,6 +23,38 @@ pub use patch::*;
 // 导出 telemetry 命令
 pub mod telemetry;
 
+use crate::modules::bootstrapper_config;
+
+#[tauri::command]
+pub async fn bootstrapper_get_config() -> Result<bootstrapper_config::BootstrapperConfig, String> {
+    Ok(bootstrapper_config::load_config())
+}
+
+#[tauri::command]
+pub async fn bootstrapper_save_config(config: bootstrapper_config::BootstrapperConfig) -> Result<(), String> {
+    bootstrapper_config::save_config(&config)
+}
+
+#[tauri::command]
+pub async fn bootstrapper_install_program(program_id: String) -> Result<(), String> {
+    crate::modules::logger::log_info(&format!("Starting bootstrapper installation for: {}", program_id));
+    // TODO: Usar el download_url para iniciar la descarga. Por ahora simulamos.
+    tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn bootstrapper_verify_program(program_id: String) -> Result<bool, String> {
+    let config = bootstrapper_config::load_config();
+    if let Some(prog) = config.programs.iter().find(|p| p.id == program_id) {
+        if let Some(ref path) = prog.local_path {
+            let p = std::path::Path::new(path);
+            return Ok(p.exists());
+        }
+    }
+    Ok(false)
+}
+
 #[tauri::command]
 pub async fn exec_command(command: String, args: Vec<String>, cwd: Option<String>) -> Result<String, String> {
     use std::process::Command;
@@ -1463,5 +1495,109 @@ pub async fn mesh_execute_action(ip: String, action: String, payload: Option<Str
     match crate::modules::command_runner_db::insert_command(&id, &ip, &cmd_text) {
         Ok(_) => Ok(format!("Command queued with ID: {}", id)),
         Err(e) => Err(format!("Failed to queue command: {}", e))
+    }
+}
+
+// --- Mesh Radar Commands ---
+
+#[tauri::command]
+pub async fn get_mesh_nodes() -> Result<Vec<crate::modules::command_runner_db::MeshNode>, String> {
+    crate::modules::command_runner_db::get_mesh_nodes()
+}
+
+#[tauri::command]
+pub async fn add_mesh_node(ip: String, name: String, protocol: String) -> Result<(), String> {
+    crate::modules::command_runner_db::add_or_update_mesh_node(&ip, &name, &protocol)
+}
+
+#[tauri::command]
+pub async fn delete_mesh_node(ip: String) -> Result<(), String> {
+    crate::modules::command_runner_db::delete_mesh_node(&ip)
+}
+
+#[tauri::command]
+pub async fn update_mesh_node(ip: String, name: String, protocol: String) -> Result<(), String> {
+    crate::modules::command_runner_db::add_or_update_mesh_node(&ip, &name, &protocol)
+}
+
+#[tauri::command]
+pub async fn wipe_and_update_remote_node(ip: String) -> Result<String, String> {
+    crate::modules::logger::log_info(&format!("Starting remote wipe and update for node: {}", ip));
+    
+    // Save the script to a temporary file
+    let script = r#"
+$ErrorActionPreference = 'SilentlyContinue'
+Write-Host 'Cerrando procesos...'
+Get-Process | Where-Object { $_.Name -match 'antigravity|civer' } | Stop-Process -Force
+
+Write-Host 'Purgando carpetas legacy...'
+Remove-Item -Path "$env:LOCALAPPDATA\Programs\antigravity" -Recurse -Force
+Remove-Item -Path "$env:LOCALAPPDATA\Antigravity Manager Civer Cloud" -Recurse -Force
+Remove-Item -Path "$env:LOCALAPPDATA\Antigravity Civer Cloud IDE" -Recurse -Force
+Remove-Item -Path "C:\Program Files\Antigravity Civer Cloud IDE" -Recurse -Force
+Remove-Item -Path "C:\Program Files\Civer Cloud Manager IDE" -Recurse -Force
+
+Write-Host 'Purgando accesos directos legacy...'
+Get-ChildItem -Path "$env:USERPROFILE\Desktop" -Filter '*Antigravity*.lnk' | Remove-Item -Force
+Get-ChildItem -Path "$env:PUBLIC\Desktop" -Filter '*Antigravity*.lnk' | Remove-Item -Force
+Get-ChildItem -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs" -Filter '*Antigravity*.lnk' -Recurse | Remove-Item -Force
+Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Antigravity IDE" -Force -Recurse
+
+$installer = 'C:\Users\Administrator\Civer_IDE_v5_setup.exe'
+Invoke-WebRequest -Uri 'http://100.111.186.118:8123/Civer%20Cloud%20Manager%20IDE_5.0.0_x64-setup.exe' -OutFile $installer -UseBasicParsing
+
+if (Test-Path $installer) {
+    Start-Process -FilePath $installer -ArgumentList '/S' -Wait
+    Start-Sleep -Seconds 3
+    
+    $exe = "$env:LOCALAPPDATA\Civer Cloud Manager IDE\civer_cloud_manager_ide.exe"
+    if (-not (Test-Path $exe)) {
+        $exe = "C:\Program Files\Civer Cloud Manager IDE\civer_cloud_manager_ide.exe"
+    }
+    
+    if (Test-Path $exe) {
+        Write-Host "Inyectando UI interactiva en la pantalla del usuario (Session 0 Bypass)..."
+        $actionApp = New-ScheduledTaskAction -Execute $exe
+        $principal = New-ScheduledTaskPrincipal -UserId "Usuario" -LogonType Interactive
+        $task = New-ScheduledTask -Action $actionApp -Principal $principal
+        
+        Register-ScheduledTask -TaskName "PopAppV5" -InputObject $task -Force | Out-Null
+        Start-ScheduledTask -TaskName "PopAppV5"
+        
+        Start-Sleep -Seconds 3
+        Unregister-ScheduledTask -TaskName "PopAppV5" -Confirm:$false
+    }
+}
+"#;
+
+    let temp_dir = std::env::temp_dir();
+    let script_path = temp_dir.join("remote_wipe.ps1");
+    if let Err(e) = std::fs::write(&script_path, script) {
+        return Err(format!("Failed to write script: {}", e));
+    }
+
+    let ps_command = format!(
+        r#" = ConvertTo-SecureString 'AgenteAccess!2026' -AsPlainText -Force;  = New-Object System.Management.Automation.PSCredential ('Usuario', ); Invoke-Command -ComputerName {} -Credential  -FilePath '{}'"#,
+        ip,
+        script_path.display()
+    );
+
+    let output = std::process::Command::new("powershell")
+        .args(&["-Command", &ps_command])
+        .output()
+        .map_err(|e| format!("Failed to execute powershell: {}", e))?;
+
+    let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+    let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+
+    crate::modules::logger::log_info(&format!("Wipe output: {}", stdout));
+    if !stderr.is_empty() {
+        crate::modules::logger::log_warn(&format!("Wipe stderr: {}", stderr));
+    }
+
+    if output.status.success() {
+        Ok(stdout)
+    } else {
+        Err(format!("Exit {}: {}", output.status, stderr))
     }
 }
