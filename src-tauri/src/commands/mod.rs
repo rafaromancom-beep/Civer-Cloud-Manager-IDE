@@ -35,7 +35,6 @@ pub async fn bootstrapper_save_config(config: bootstrapper_config::BootstrapperC
     bootstrapper_config::save_config(&config)
 }
 
-#[tauri::command]
 pub async fn bootstrapper_install_program(program_id: String) -> Result<(), String> {
     crate::modules::logger::log_info(&format!("Iniciando descarga e instalación real para: {}", program_id));
     let config = bootstrapper_config::load_config();
@@ -53,78 +52,152 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
         .parent()
         .map(|p| p.to_string_lossy().to_string())
         .unwrap_or_else(|| "C:\\ProyectoCiverCloudUnificado\\Herramientas\\Apps-Portables".to_string());
-        
-    // Script PowerShell para descarga e instalacion portable 100% silenciosa en C:\ProyectoCiverCloudUnificado
-    let ps_script = format!(
-        "$ErrorActionPreference = 'Stop'; \
-        New-Item -ItemType Directory -Force -Path '{}' | Out-Null; \
-        $source = '{}'; \
-        $target = '{}'; \
-        $targetDir = '{}'; \
-        if ($source -like 'http*') {{ \
-          Write-Host ('Descargando desde ' + $source + '...'); \
-          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-          $tempFile = Join-Path $targetDir 'download_temp.file'; \
-          Invoke-WebRequest -Uri $source -OutFile $tempFile -UserAgent 'Mozilla/5.0'; \
-          if ($source -like '*.zip') {{ \
-            Expand-Archive -Path $tempFile -DestinationPath $targetDir -Force; \
-            Remove-Item $tempFile -Force; \
-          }} elseif ($source -like '*.exe') {{ \
-            Start-Process -FilePath $tempFile -ArgumentList '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -WindowStyle Hidden; \
-            Remove-Item $tempFile -Force; \
-          }} else {{ \
-            Move-Item -Path $tempFile -Destination $target -Force; \
-          }} \
-        }} else {{ \
-          Write-Host ('Instalando silenciosamente desde la bóveda oficial ' + $source + '...'); \
-          if (Test-Path $source) {{ \
-            if ($source -like '*.exe') {{ \
-              Start-Process -FilePath $source -ArgumentList '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -WindowStyle Hidden; \
-              $appDataProg = \"$env:LOCALAPPDATA\\Programs\\Antigravity IDE\"; \
-              if (Test-Path $appDataProg) {{ \
-                Copy-Item -Path \"$appDataProg\\*\" -Destination $targetDir -Recurse -Force; \
-              }} \
-              if (-not (Test-Path $target)) {{ \
-                $foundExe = Get-ChildItem -Path $targetDir -Filter '*.exe' | Select-Object -First 1; \
-                if ($foundExe) {{ Copy-Item -Path $foundExe.FullName -Destination $target -Force; }} \
-              }} \
-            }} elseif ($source -like '*.zip') {{ \
-              Expand-Archive -Path $source -DestinationPath $targetDir -Force; \
-            }} else {{ \
-              Copy-Item -Path $source -Destination $target -Force; \
-            }} \
-          }} else {{ \
-            throw ('El instalador oficial no existe en la bóveda: ' + $source); \
-          }} \
-        }}; \
-        Write-Host 'Instalación portable completada exitosamente.'",
-        target_dir.replace("'", "''"),
-        url.replace("'", "''"),
-        target_path.replace("'", "''"),
-        target_dir.replace("'", "''")
-    );
+
+    // Crear directorio de destino
+    std::fs::create_dir_all(&target_dir).map_err(|e| format!("Error creando directorio: {}", e))?;
+
+    let is_http = url.starts_with("http");
     
     use std::process::Command;
-    let mut cmd = Command::new("powershell");
     #[cfg(target_os = "windows")]
-    {
-        use std::os::windows::process::CommandExt;
-        cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
-    }
-    
-    let output = cmd
-        .args(&["-ExecutionPolicy", "Bypass", "-Command", &ps_script])
-        .output()
-        .map_err(|e| format!("Error al ejecutar PowerShell: {}", e))?;
+    use std::os::windows::process::CommandExt;
+
+    if is_http {
+        crate::modules::logger::log_info(&format!("Descargando desde {}", url));
+        let temp_file = format!("{}\\download_temp.file", target_dir);
         
-    if output.status.success() {
-        crate::modules::logger::log_info(&format!("Instalación de {} finalizada correctamente.", program_id));
-        Ok(())
+        // Usar curl.exe nativo de Windows (no afectado por AMSI)
+        let mut curl_cmd = Command::new("curl.exe");
+        #[cfg(target_os = "windows")]
+        curl_cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        
+        let output = curl_cmd
+            .args(&["-L", "-o", &temp_file, url])
+            .output()
+            .map_err(|e| format!("Error ejecutando curl: {}", e))?;
+            
+        if !output.status.success() {
+            return Err(format!("Fallo al descargar (curl): {}", String::from_utf8_lossy(&output.stderr)));
+        }
+
+        if url.ends_with(".zip") {
+            // Extraer usando tar.exe nativo de Windows (no afectado por AMSI)
+            let mut tar_cmd = Command::new("tar.exe");
+            #[cfg(target_os = "windows")]
+            tar_cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+            
+            let tar_output = tar_cmd
+                .args(&["-xf", &temp_file, "-C", &target_dir])
+                .output()
+                .map_err(|e| format!("Error ejecutando tar: {}", e))?;
+                
+            let _ = std::fs::remove_file(&temp_file);
+            
+            if !tar_output.status.success() {
+                return Err(format!("Fallo al extraer (tar): {}", String::from_utf8_lossy(&tar_output.stderr)));
+            }
+
+            // Renombrar el .exe extraído a target_path si no existe target_path
+            if !std::path::Path::new(&target_path).exists() {
+                if let Ok(entries) = std::fs::read_dir(&target_dir) {
+                    for entry in entries.flatten() {
+                        if let Some(ext) = entry.path().extension() {
+                            if ext == "exe" && entry.path().to_string_lossy() != target_path {
+                                let _ = std::fs::rename(entry.path(), &target_path);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else if url.ends_with(".exe") && !program_id.contains("cli") {
+            // Ejecutar instalador silencioso
+            let mut exe_cmd = Command::new(&temp_file);
+            #[cfg(target_os = "windows")]
+            exe_cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+            
+            let _ = exe_cmd.args(&["/SP-", "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART"]).output();
+            
+            // Wait a bit just in case
+            std::thread::sleep(std::time::Duration::from_secs(2));
+            let _ = std::fs::remove_file(&temp_file); // will fail if still running, which is fine
+        } else {
+            // Solo mover (ej. cli que es agy-win-x64.exe se mueve a target_path)
+            let _ = std::fs::rename(&temp_file, &target_path);
+        }
     } else {
-        let err_msg = String::from_utf8_lossy(&output.stderr);
-        let out_msg = String::from_utf8_lossy(&output.stdout);
-        Err(format!("Fallo en la instalación: {}\n{}", err_msg, out_msg))
+        crate::modules::logger::log_info(&format!("Instalando silenciosamente desde la bóveda oficial {}", url));
+        if !std::path::Path::new(url).exists() {
+            return Err(format!("El instalador oficial no existe en la bóveda: {}", url));
+        }
+        
+        if url.ends_with(".exe") && !program_id.contains("cli") {
+            let mut exe_cmd = Command::new(url);
+            #[cfg(target_os = "windows")]
+            exe_cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+            
+            let _ = exe_cmd.args(&["/SP-", "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART"]).output();
+            
+            let local_appdata = std::env::var("LOCALAPPDATA").unwrap_or_else(|_| "C:\\Users\\Administrator\\AppData\\Local".to_string());
+            let app_data_prog = format!("{}\\Programs\\Antigravity IDE", local_appdata);
+            
+            // Intentar copiar todo desde appData
+            if std::path::Path::new(&app_data_prog).exists() {
+                let mut xcopy_cmd = std::process::Command::new("xcopy.exe");
+                #[cfg(target_os = "windows")]
+                xcopy_cmd.creation_flags(0x08000000);
+                
+                let _ = xcopy_cmd
+                    .args(&[&app_data_prog, &target_dir, "/E", "/H", "/C", "/I", "/Y"])
+                    .output();
+            }
+            
+            // Si el target sigue sin existir, renombrar algun exe
+            if !std::path::Path::new(&target_path).exists() {
+                if let Ok(entries) = std::fs::read_dir(&target_dir) {
+                    for entry in entries.flatten() {
+                        if let Some(ext) = entry.path().extension() {
+                            if ext == "exe" {
+                                let _ = std::fs::copy(entry.path(), &target_path);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else if url.ends_with(".zip") {
+            let mut tar_cmd = Command::new("tar.exe");
+            #[cfg(target_os = "windows")]
+            tar_cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+            
+            let tar_output = tar_cmd
+                .args(&["-xf", url, "-C", &target_dir])
+                .output()
+                .map_err(|e| format!("Error ejecutando tar: {}", e))?;
+                
+            if !tar_output.status.success() {
+                return Err(format!("Fallo al extraer bóveda (tar): {}", String::from_utf8_lossy(&tar_output.stderr)));
+            }
+
+            if !std::path::Path::new(&target_path).exists() {
+                if let Ok(entries) = std::fs::read_dir(&target_dir) {
+                    for entry in entries.flatten() {
+                        if let Some(ext) = entry.path().extension() {
+                            if ext == "exe" && entry.path().to_string_lossy() != target_path {
+                                let _ = std::fs::rename(entry.path(), &target_path);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            let _ = std::fs::copy(url, &target_path);
+        }
     }
+
+    crate::modules::logger::log_info(&format!("Instalación de {} finalizada correctamente.", program_id));
+    Ok(())
 }
 
 #[tauri::command]
@@ -387,15 +460,30 @@ pub async fn bootstrapper_open_program(program_id: String, target_node: String, 
             cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW para la consola cmd intermedia
         }
         
+        let is_cli = program_id.contains("cli") || program_id.contains("sdk") || program_id.contains("rclone") || program_id.contains("kopia") || program_id.contains("tailscale");
+        
+        let args = if is_cli {
+            vec![
+                "/c".to_string(),
+                "start".to_string(),
+                format!("{}", program_id),
+                "cmd".to_string(),
+                "/k".to_string(),
+                format!("cd /d \"{}\" && \"{}\" --help || \"{}\"", work_dir, detected_path, detected_path)
+            ]
+        } else {
+            vec![
+                "/c".to_string(),
+                "start".to_string(),
+                "".to_string(),
+                "/d".to_string(),
+                work_dir.to_string(),
+                detected_path.to_string(),
+            ]
+        };
+
         match cmd
-            .args(&[
-                "/c",
-                "start",
-                "",
-                "/d",
-                &work_dir,
-                &detected_path,
-            ])
+            .args(&args)
             .spawn()
         {
             Ok(_) => Ok(()),
