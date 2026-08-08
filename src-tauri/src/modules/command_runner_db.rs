@@ -116,3 +116,83 @@ pub fn mark_running_as_disconnected(node_ip: &str) -> Result<(), String> {
     
     Ok(())
 }
+
+// --- Mesh Radar: Nodos de la red P2P ---
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct MeshNode {
+    pub ip: String,
+    pub name: String,
+    pub protocol: String,
+    pub last_seen: Option<i64>,
+    pub status: String,
+}
+
+/// Inicializa la tabla mesh_nodes si no existe (llamada desde init_db)
+fn ensure_mesh_table(conn: &Connection) -> Result<(), String> {
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS mesh_nodes (
+            ip       TEXT PRIMARY KEY,
+            name     TEXT NOT NULL,
+            protocol TEXT NOT NULL DEFAULT 'tailscale',
+            last_seen INTEGER,
+            status   TEXT NOT NULL DEFAULT 'unknown'
+        )",
+        [],
+    ).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+pub fn get_mesh_nodes() -> Result<Vec<MeshNode>, String> {
+    let conn = connect_db()?;
+    ensure_mesh_table(&conn)?;
+
+    let mut stmt = conn.prepare(
+        "SELECT ip, name, protocol, last_seen, status FROM mesh_nodes ORDER BY name ASC"
+    ).map_err(|e| e.to_string())?;
+
+    let iter = stmt.query_map([], |row| {
+        Ok(MeshNode {
+            ip: row.get(0)?,
+            name: row.get(1)?,
+            protocol: row.get(2)?,
+            last_seen: row.get(3).unwrap_or(None),
+            status: row.get(4)?,
+        })
+    }).map_err(|e| e.to_string())?;
+
+    let mut nodes = Vec::new();
+    for node in iter {
+        nodes.push(node.map_err(|e| e.to_string())?);
+    }
+    Ok(nodes)
+}
+
+pub fn add_or_update_mesh_node(ip: &str, name: &str, protocol: &str) -> Result<(), String> {
+    let conn = connect_db()?;
+    ensure_mesh_table(&conn)?;
+
+    let now = chrono::Utc::now().timestamp();
+    conn.execute(
+        "INSERT INTO mesh_nodes (ip, name, protocol, last_seen, status)
+         VALUES (?1, ?2, ?3, ?4, 'unknown')
+         ON CONFLICT(ip) DO UPDATE SET
+             name      = excluded.name,
+             protocol  = excluded.protocol,
+             last_seen = excluded.last_seen",
+        params![ip, name, protocol, now],
+    ).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+pub fn delete_mesh_node(ip: &str) -> Result<(), String> {
+    let conn = connect_db()?;
+    ensure_mesh_table(&conn)?;
+
+    conn.execute(
+        "DELETE FROM mesh_nodes WHERE ip = ?1",
+        params![ip],
+    ).map_err(|e| e.to_string())?;
+    Ok(())
+}
+

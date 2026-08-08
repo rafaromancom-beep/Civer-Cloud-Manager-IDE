@@ -129,35 +129,116 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
 
 #[tauri::command]
 pub async fn bootstrapper_deploy_ag_cloner(program_id: String, target_node: String) -> Result<(), String> {
-    crate::modules::logger::log_info(&format!("Starting ag-cloner deployment for: {} on node {}", program_id, target_node));
-    
-    // Spawn PowerShell to run ag-cloner.ps1 targeting the node
+    crate::modules::logger::log_info(&format!(
+        "Iniciando deploy real SSH para '{}' en nodo '{}'", program_id, target_node
+    ));
+
     use std::process::Command;
-    let mut cmd = Command::new("powershell");
-    cmd.args(&[
-        "-ExecutionPolicy", "Bypass",
-        "-File",
-        r"C:\ProyectoCiverCloudUnificado\Herramientas\ag-cloner.ps1",
-        "-TargetNode",
-        &target_node
-    ]);
-    
-    // Windows logic to prevent popups
+
+    let config = bootstrapper_config::load_config();
+    let prog = config.programs.iter().find(|p| p.id == program_id)
+        .ok_or_else(|| format!("Programa '{}' no encontrado en la configuración.", program_id))?;
+
+    // 1. Obtener ruta del instalador oficial en la bóveda local
+    let installer_path = prog.download_url.as_ref()
+        .ok_or_else(|| format!("El programa '{}' no tiene instalador configurado.", program_id))?;
+
+    if installer_path.starts_with("http") {
+        return Err(format!(
+            "Deploy SSH solo soporta instaladores locales. '{}' usa URL HTTP. Configura la ruta del instalador .exe en la bóveda.",
+            program_id
+        ));
+    }
+
+    if !std::path::Path::new(installer_path).exists() {
+        return Err(format!(
+            "Instalador no existe en la bóveda local: {}",
+            installer_path
+        ));
+    }
+
+    let installer_name = std::path::Path::new(installer_path)
+        .file_name()
+        .map(|n| n.to_string_lossy().to_string())
+        .ok_or("No se pudo obtener nombre del instalador.")?;
+
+    let remote_temp = format!("C:/Windows/Temp/{}", installer_name);
+
+    // 2. Copiar instalador a nodo remoto via SCP
+    crate::modules::logger::log_info(&format!(
+        "SCP: {} -> {}:{}", installer_path, target_node, remote_temp
+    ));
+
+    let scp_dest = format!("{}:{}", target_node, remote_temp);
+    let mut scp_cmd = Command::new("scp");
     #[cfg(target_os = "windows")]
     {
         use std::os::windows::process::CommandExt;
-        cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        scp_cmd.creation_flags(0x08000000);
     }
-    
-    match cmd.status() {
-        Ok(status) => {
-            if status.success() || status.code() == Some(0) || status.code() == Some(1) {
-                Ok(())
-            } else {
-                Err(format!("Deployment to {} failed with exit code {}", target_node, status))
-            }
-        },
-        Err(e) => Err(format!("Failed to execute ag-cloner: {}", e)),
+    let scp_out = scp_cmd
+        .args(&[
+            "-o", "ConnectTimeout=30",
+            "-o", "StrictHostKeyChecking=no",
+            "-o", "BatchMode=yes",
+            installer_path,
+            &scp_dest,
+        ])
+        .output()
+        .map_err(|e| format!("Error scp: {}", e))?;
+
+    if !scp_out.status.success() {
+        let err = String::from_utf8_lossy(&scp_out.stderr);
+        return Err(format!("Fallo al copiar instalador a {}: {}", target_node, err));
+    }
+
+    // 3. Ejecutar instalador silenciosamente en el nodo remoto via SSH
+    let install_dir = prog.local_path.as_ref()
+        .and_then(|p| std::path::Path::new(p).parent().map(|d| d.to_string_lossy().to_string()))
+        .unwrap_or_else(|| "C:\\ProyectoCiverCloudUnificado\\Herramientas\\Apps-Portables".to_string());
+
+    let remote_temp_win = remote_temp.replace('/', "\\");
+    let remote_script = format!(
+        "powershell -NonInteractive -Command \"New-Item -ItemType Directory -Force -Path '{install_dir}' | Out-Null; Start-Process -FilePath '{installer}' -ArgumentList '/SP-','/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART' -Wait -WindowStyle Hidden; Remove-Item '{installer}' -Force -ErrorAction SilentlyContinue; Write-Host OK\"",
+        install_dir = install_dir.replace('\'', "''"),
+        installer = remote_temp_win.replace('\'', "''"),
+    );
+
+    crate::modules::logger::log_info(&format!(
+        "SSH: Ejecutando instalación desatendida en {}...", target_node
+    ));
+
+    let mut ssh_cmd = Command::new("ssh");
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        ssh_cmd.creation_flags(0x08000000);
+    }
+    let ssh_out = ssh_cmd
+        .args(&[
+            "-o", "ConnectTimeout=60",
+            "-o", "StrictHostKeyChecking=no",
+            "-o", "BatchMode=yes",
+            &target_node,
+            &remote_script,
+        ])
+        .output()
+        .map_err(|e| format!("Error ssh: {}", e))?;
+
+    let code = ssh_out.status.code().unwrap_or(-1);
+    // NSIS códigos 0 y 1 son éxito (1 = reinicio diferido)
+    if ssh_out.status.success() || code == 0 || code == 1 {
+        crate::modules::logger::log_info(&format!(
+            "Deploy de '{}' completado en {}.", program_id, target_node
+        ));
+        Ok(())
+    } else {
+        let err = String::from_utf8_lossy(&ssh_out.stderr);
+        let out = String::from_utf8_lossy(&ssh_out.stdout);
+        Err(format!(
+            "Instalación remota en {} falló (código {}): {}\n{}",
+            target_node, code, err, out
+        ))
     }
 }
 
