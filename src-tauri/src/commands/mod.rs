@@ -54,7 +54,7 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
         .map(|p| p.to_string_lossy().to_string())
         .unwrap_or_else(|| "C:\\ProyectoCiverCloudUnificado\\Herramientas\\Apps-Portables".to_string());
         
-    // Script PowerShell para descarga e instalacion portable dinamica y 100% silenciosa
+    // Script PowerShell para descarga e instalacion portable 100% silenciosa en C:\ProyectoCiverCloudUnificado
     let ps_script = format!(
         "$ErrorActionPreference = 'Stop'; \
         New-Item -ItemType Directory -Force -Path '{}' | Out-Null; \
@@ -70,7 +70,7 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
             Expand-Archive -Path $tempFile -DestinationPath $targetDir -Force; \
             Remove-Item $tempFile -Force; \
           }} elseif ($source -like '*.exe') {{ \
-            Start-Process -FilePath $tempFile -ArgumentList ('/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /S /silent /quiet /DIR=\"' + $targetDir + '\"') -Wait -WindowStyle Hidden; \
+            Start-Process -FilePath $tempFile -ArgumentList '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -WindowStyle Hidden; \
             Remove-Item $tempFile -Force; \
           }} else {{ \
             Move-Item -Path $tempFile -Destination $target -Force; \
@@ -79,9 +79,13 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
           Write-Host ('Instalando silenciosamente desde la bóveda oficial ' + $source + '...'); \
           if (Test-Path $source) {{ \
             if ($source -like '*.exe') {{ \
-              Start-Process -FilePath $source -ArgumentList ('/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /S /silent /quiet /DIR=\"' + $targetDir + '\"') -Wait -WindowStyle Hidden; \
+              Start-Process -FilePath $source -ArgumentList '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -WindowStyle Hidden; \
+              $appDataProg = \"$env:LOCALAPPDATA\\Programs\\Antigravity IDE\"; \
+              if (Test-Path $appDataProg) {{ \
+                Copy-Item -Path \"$appDataProg\\*\" -Destination $targetDir -Recurse -Force; \
+              }} \
               if (-not (Test-Path $target)) {{ \
-                $foundExe = Get-ChildItem -Path $targetDir -Filter '*.exe' -Recurse | Select-Object -First 1; \
+                $foundExe = Get-ChildItem -Path $targetDir -Filter '*.exe' | Select-Object -First 1; \
                 if ($foundExe) {{ Copy-Item -Path $foundExe.FullName -Destination $target -Force; }} \
               }} \
             }} elseif ($source -like '*.zip') {{ \
@@ -93,7 +97,7 @@ pub async fn bootstrapper_install_program(program_id: String) -> Result<(), Stri
             throw ('El instalador oficial no existe en la bóveda: ' + $source); \
           }} \
         }}; \
-        Write-Host 'Instalación silenciosa completada exitosamente.'",
+        Write-Host 'Instalación portable completada exitosamente.'",
         target_dir.replace("'", "''"),
         url.replace("'", "''"),
         target_path.replace("'", "''"),
