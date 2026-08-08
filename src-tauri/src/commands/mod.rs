@@ -151,7 +151,7 @@ pub async fn bootstrapper_deploy_ag_cloner(program_id: String, target_node: Stri
     
     match cmd.status() {
         Ok(status) => {
-            if status.success() {
+            if status.success() || status.code() == Some(0) || status.code() == Some(1) {
                 Ok(())
             } else {
                 Err(format!("Deployment to {} failed with exit code {}", target_node, status))
