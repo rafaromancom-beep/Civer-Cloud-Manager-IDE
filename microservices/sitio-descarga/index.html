@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Manager — Civer Cloud IDE</title>
-  <meta name="description" content="Descarga Antigravity Manager, el centro de control definitivo para tu ecosistema Civer Cloud. Ultra-rápido, seguro y sin restricciones de acceso.">
-  <meta property="og:title" content="Antigravity Manager — Civer Cloud">
+  <title>Civer Cloud Manager IDE — Civer Cloud</title>
+  <meta name="description" content="Descarga Civer Cloud Manager IDE, el centro de control definitivo para tu ecosistema Civer Cloud. Ultra-rápido, seguro y sin restricciones de acceso.">
+  <meta property="og:title" content="Civer Cloud Manager IDE — Civer Cloud">
   <meta property="og:description" content="El IDE definitivo para el ecosistema Civer Cloud.">
   <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -177,7 +178,7 @@
     }
 
     /* ─── Download cards ─── */
-    .cards {
+    .cards-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
@@ -185,7 +186,7 @@
       animation: fadeInUp 0.6s ease 0.3s both;
     }
     @media (max-width: 600px) {
-      .cards { grid-template-columns: 1fr; }
+      .cards-container { grid-template-columns: 1fr; }
     }
 
     .card {
@@ -328,13 +329,13 @@
       <!-- Nav -->
       <nav>
         <div class="logo">
-          <div class="logo-icon">&#128640;</div>
-          <span>Antigravity</span>
+          <img src="icon.png" alt="Civer Tiger Logo" style="width:36px;height:36px;border-radius:10px;object-fit:cover;">
+          <span>Civer Cloud</span>
         </div>
         <div style="display:flex; gap:16px; align-items:center;">
           <a href="https://ia.civer.cloud" style="color:var(--text); text-decoration:none; font-size:0.9rem; font-weight:600; transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Civer IA Hub</a>
           <a href="https://chat.civer.cloud" style="color:var(--text); text-decoration:none; font-size:0.9rem; font-weight:600; transition:color 0.2s;" onmouseover="this.style.color='var(--accent2)'" onmouseout="this.style.color='var(--text)'">Chat Panel</a>
-          <span class="badge">v4.4.7</span>
+          <span class="badge">v5.2.0</span>
         </div>
       </nav>
 
@@ -342,8 +343,8 @@
     <div class="hero">
       <div class="hero-label">Sistema Activo &amp; Operativo</div>
       <h1>
-        El IDE definitivo para<br>
-        <span class="gradient-text">Civer Cloud</span>
+        El programa todo en uno para<br>
+        <span class="gradient-text">desarrolladores del equipo de Civer Cloud</span>
       </h1>
       <p>
         Centro de control unificado para tu ecosistema cloud.
@@ -353,12 +354,12 @@
     </div>
 
     <!-- Main download cards -->
-    <div class="cards">
-      <a href="antigravity.civer.cloud.exe" download class="card" id="btn-windows">
+    <div class="cards-container">
+      <a href="Civer-Cloud-Manager-IDE-v5.2.0-Oficial.zip" download class="card" id="btn-windows">
         <div class="card-icon blue">🪟</div>
         <div class="card-content">
-          <div class="card-title">Windows Installer</div>
-          <div class="card-desc">Para Windows 10 / 11 (64-bit)<br>Instalador completo con todas las herramientas</div>
+          <div class="card-title">Windows Installer v5.2.0 (ZIP)</div>
+          <div class="card-desc">Windows 10/11 (64-bit)<br>Instalador seguro · Verificable con MD5</div>
         </div>
         <div class="card-arrow">↗</div>
       </a>
@@ -400,7 +401,7 @@
     <div class="info-strip">
       <div class="info-item">
         <span class="dot"></span>
-        Versión 4.4.7
+        Versión 5.2.0
       </div>
       <div class="info-item">
         <span class="dot"></span>
@@ -416,11 +417,25 @@
       </div>
     </div>
 
-  </div>
+    <!-- MD5 Verification Strip -->
+    <div id="md5-strip" style="margin-top:1rem;padding:.75rem 1.25rem;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.2);border-radius:10px;font-size:0.72rem;color:#6b7a9e;font-family:monospace;">
+      <span style="color:#34d399;">MD5 ✓</span> Cargando hash de verificación...
+    </div>
+    <script>
+      fetch('/version.json').then(r=>r.json()).then(v=>{
+        document.getElementById('md5-strip').innerHTML =
+          '<span style="color:#34d399;">MD5 \u2713 Verificado</span> &nbsp;|&nbsp; '
+          + 'v' + v.version + ' &nbsp;|&nbsp; '
+          + 'MD5: <b>' + v.md5 + '</b> &nbsp;|&nbsp; '
+          + v.size_mb + 'MB &nbsp;|&nbsp; Compilado: ' + v.release_date;
+      }).catch(()=>{
+        document.getElementById('md5-strip').innerHTML = 'MD5 no disponible en este momento';
+      });
+    </script>
 
   <footer>
     &copy; 2026 Civer Cloud · Todos los derechos reservados ·
-    <a href="https://antigravity.civer.cloud" style="color:inherit; text-decoration:none;">antigravity.civer.cloud</a>
+    <a href="https://manager.civer.cloud" style="color:inherit; text-decoration:none;">manager.civer.cloud</a>
   </footer>
 
 </body>

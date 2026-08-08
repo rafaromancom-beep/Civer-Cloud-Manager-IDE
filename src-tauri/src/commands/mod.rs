@@ -37,22 +37,393 @@ pub async fn bootstrapper_save_config(config: bootstrapper_config::BootstrapperC
 
 #[tauri::command]
 pub async fn bootstrapper_install_program(program_id: String) -> Result<(), String> {
-    crate::modules::logger::log_info(&format!("Starting bootstrapper installation for: {}", program_id));
-    // TODO: Usar el download_url para iniciar la descarga. Por ahora simulamos.
-    tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
-    Ok(())
+    crate::modules::logger::log_info(&format!("Iniciando descarga e instalación real para: {}", program_id));
+    let config = bootstrapper_config::load_config();
+    let prog = config.programs.iter().find(|p| p.id == program_id)
+        .ok_or_else(|| format!("Programa '{}' no encontrado en la configuración.", program_id))?;
+        
+    let url = prog.download_url.as_ref()
+        .ok_or_else(|| format!("El programa '{}' no tiene URL de descarga configurada.", program_id))?;
+        
+    let target_path = prog.local_path.as_ref()
+        .cloned()
+        .unwrap_or_else(|| format!("C:\\ProyectoCiverCloudUnificado\\Herramientas\\Apps-Portables\\{}\\{}.exe", program_id, program_id));
+        
+    let target_dir = std::path::Path::new(&target_path)
+        .parent()
+        .map(|p| p.to_string_lossy().to_string())
+        .unwrap_or_else(|| "C:\\ProyectoCiverCloudUnificado\\Herramientas\\Apps-Portables".to_string());
+        
+    // Script PowerShell para descarga e instalacion portable dinamica
+    let ps_script = format!(
+        "$ErrorActionPreference = 'Stop'; \
+        New-Item -ItemType Directory -Force -Path '{}' | Out-Null; \
+        $source = '{}'; \
+        $target = '{}'; \
+        $targetDir = '{}'; \
+        if ($source -like 'http*') {{ \
+          Write-Host ('Descargando desde ' + $source + '...'); \
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+          $tempFile = Join-Path $targetDir 'download_temp'; \
+          Invoke-WebRequest -Uri $source -OutFile $tempFile -UserAgent 'Mozilla/5.0'; \
+          if ($source -like '*.zip') {{ \
+            Expand-Archive -Path $tempFile -DestinationPath $targetDir -Force; \
+            Remove-Item $tempFile -Force; \
+          }} else {{ \
+            Move-Item -Path $tempFile -Destination $target -Force; \
+          }} \
+        }} else {{ \
+          Write-Host ('Copiando ejecutable desde la Bóveda de Instaladores Oficiales ' + $source + '...'); \
+          if (Test-Path $source) {{ \
+            Copy-Item -Path $source -Destination $target -Force; \
+          }} else {{ \
+            throw ('El instalador oficial no existe en la bóveda: ' + $source); \
+          }} \
+        }}; \
+        Write-Host 'Instalación completada exitosamente.'",
+        target_dir.replace("'", "''"),
+        url.replace("'", "''"),
+        target_path.replace("'", "''"),
+        target_dir.replace("'", "''")
+    );
+    
+    use std::process::Command;
+    let mut cmd = Command::new("powershell");
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    
+    let output = cmd
+        .args(&["-ExecutionPolicy", "Bypass", "-Command", &ps_script])
+        .output()
+        .map_err(|e| format!("Error al ejecutar PowerShell: {}", e))?;
+        
+    if output.status.success() {
+        crate::modules::logger::log_info(&format!("Instalación de {} finalizada correctamente.", program_id));
+        Ok(())
+    } else {
+        let err_msg = String::from_utf8_lossy(&output.stderr);
+        let out_msg = String::from_utf8_lossy(&output.stdout);
+        Err(format!("Fallo en la instalación: {}\n{}", err_msg, out_msg))
+    }
 }
 
 #[tauri::command]
-pub async fn bootstrapper_verify_program(program_id: String) -> Result<bool, String> {
+pub async fn bootstrapper_deploy_ag_cloner(program_id: String, target_node: String) -> Result<(), String> {
+    crate::modules::logger::log_info(&format!("Starting ag-cloner deployment for: {} on node {}", program_id, target_node));
+    
+    // Spawn PowerShell to run ag-cloner.ps1 targeting the node
+    use std::process::Command;
+    let mut cmd = Command::new("powershell");
+    cmd.args(&[
+        "-ExecutionPolicy", "Bypass",
+        "-File",
+        r"C:\ProyectoCiverCloudUnificado\Herramientas\ag-cloner.ps1",
+        "-TargetNode",
+        &target_node
+    ]);
+    
+    // Windows logic to prevent popups
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    
+    match cmd.status() {
+        Ok(status) => {
+            if status.success() {
+                Ok(())
+            } else {
+                Err(format!("Deployment to {} failed with exit code {}", target_node, status))
+            }
+        },
+        Err(e) => Err(format!("Failed to execute ag-cloner: {}", e)),
+    }
+}
+
+#[derive(serde::Serialize)]
+pub struct VerifyResult {
+    pub installed: bool,
+    pub detected_path: Option<String>,
+}
+
+#[tauri::command]
+pub async fn bootstrapper_verify_program(program_id: String, target_node: String) -> Result<VerifyResult, String> {
     let config = bootstrapper_config::load_config();
+    
+    // 1. Get the configured path
+    let mut paths_to_check = Vec::new();
     if let Some(prog) = config.programs.iter().find(|p| p.id == program_id) {
         if let Some(ref path) = prog.local_path {
-            let p = std::path::Path::new(path);
-            return Ok(p.exists());
+            paths_to_check.push(path.clone());
         }
     }
-    Ok(false)
+
+    // 2. Add smart fallback paths based on ID
+    let vault_base = "C:\\ProyectoCiverCloudUnificado\\Herramientas";
+    match program_id.as_str() {
+        "antigravity_classic" => {
+            // Antigravity 2.0 (v2.6.0 - Principal)
+            paths_to_check.push("C:\\Users\\Administrator\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe".to_string());
+            paths_to_check.push("C:\\Users\\Usuario\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe".to_string());
+        }
+        "antigravity_normal" => {
+            // Antigravity IDE (v2.1.1 - Legacy)
+            paths_to_check.push(format!("{}\\Apps-Portables\\AntigravityIDE-v2.1.1\\Antigravity.exe", vault_base));
+        }
+        "antigravity_cli" => {
+            // Antigravity CLI - interfaz de linea de comandos (v1.1.11)
+            paths_to_check.push(format!("{}\\Apps-Portables\\AntigravityIDE\\agy.exe", vault_base));
+            paths_to_check.push("C:\\Users\\Administrator\\AppData\\Local\\Programs\\Antigravity\\resources\\agy.exe".to_string());
+        }
+        "antigravity_sdk" => {
+            // Antigravity SDK - kit de desarrollo (v0.1.10)
+            paths_to_check.push(format!("{}\\Apps-Portables\\Antigravity-Agent\\antigravity-agent.exe", vault_base));
+        }
+        "rclone" => {
+            paths_to_check.push(format!("{}\\BajoNivel\\rclone.exe", vault_base));
+            paths_to_check.push(format!("{}\\Apps-Portables\\Rclone\\rclone.exe", vault_base));
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Respaldos-y-Sync\\Omni-Backup-System\\bin\\rclone.exe".to_string());
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Sistema-Supervivencia-Backups\\3-Omni-Backup-System\\bin\\rclone.exe".to_string());
+            paths_to_check.push("C:\\rclone\\rclone.exe".to_string());
+        }
+        "kopia" => {
+            paths_to_check.push(format!("{}\\Apps-Portables\\KopiaConfig\\kopia.exe", vault_base));
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Respaldos-y-Sync\\Omni-Backup-System\\bin\\kopia.exe".to_string());
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Sistema-Supervivencia-Backups\\3-Omni-Backup-System\\bin\\kopia.exe".to_string());
+            paths_to_check.push("C:\\Program Files\\Kopia\\KopiaUI.exe".to_string());
+        }
+        "autogravity" => {
+            // AutoGravity - automatizacion IA satelital. Es proyecto Node/Electron compilado
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Desktop-y-Extensiones\\AutoGravity\\dist\\win-unpacked\\AutoGravity.exe".to_string());
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Desktop-y-Extensiones\\AutoGravity\\dist\\win-unpacked\\autogravity.exe".to_string());
+            paths_to_check.push("C:\\Users\\Administrator\\AppData\\Local\\Programs\\autogravity\\AutoGravity.exe".to_string());
+            // Si no está compilado, detectar el script de arranque
+            paths_to_check.push("C:\\ProyectoCiverCloudUnificado\\Desktop-y-Extensiones\\AutoGravity\\package.json".to_string());
+        }
+        "tailscale" => {
+            paths_to_check.push(format!("{}\\Apps-Portables\\Tailscale\\tailscale.exe", vault_base));
+            paths_to_check.push("C:\\Program Files\\Tailscale\\tailscale.exe".to_string());
+        }
+        "protonvpn" => {
+            paths_to_check.push(format!("{}\\Apps-Portables\\ProtonVPN\\Binaries\\ProtonVPN.Launcher.exe", vault_base));
+            paths_to_check.push("C:\\Program Files\\Proton\\VPN\\v3.2.10\\ProtonVPN.Launcher.exe".to_string());
+        }
+        _ => {}
+    }
+
+    // 3. Verify intelligently
+    if target_node == "localhost" {
+        for path_str in paths_to_check {
+            let p = std::path::Path::new(&path_str);
+            if p.exists() {
+                crate::modules::logger::log_info(&format!("Verified {} at {}", program_id, path_str));
+                return Ok(VerifyResult { installed: true, detected_path: Some(path_str) });
+            }
+        }
+    } else {
+        // Verificacion remota via SSH (protocolo del ecosistema Civer Cloud)
+        use std::process::Command;
+        
+        // Construir script PowerShell que verifica las rutas remotamente via SSH
+        let paths_joined = paths_to_check.iter()
+            .map(|p| format!("'{}'", p.replace('\\', "\\\\").replace('\'', "''")))
+            .collect::<Vec<_>>()
+            .join(",");
+            
+        let remote_script = format!(
+            "foreach ($p in @({})) {{ if (Test-Path $p) {{ Write-Output $p; exit 0 }} }}; Write-Output 'NOT_FOUND'",
+            paths_joined
+        );
+        
+        let mut cmd = Command::new("ssh");
+        #[cfg(target_os = "windows")]
+        {
+            use std::os::windows::process::CommandExt;
+            cmd.creation_flags(0x08000000);
+        }
+        
+        let output = cmd
+            .args(&[
+                "-o", "ConnectTimeout=5",
+                "-o", "StrictHostKeyChecking=no",
+                "-o", "BatchMode=yes",
+                &target_node,
+                "powershell",
+                "-NonInteractive",
+                "-Command",
+                &remote_script,
+            ])
+            .output();
+            
+        if let Ok(out) = output {
+            let stdout = String::from_utf8_lossy(&out.stdout).trim().to_string();
+            if !stdout.is_empty() && stdout != "NOT_FOUND" {
+                return Ok(VerifyResult { installed: true, detected_path: Some(stdout) });
+            }
+        }
+    }
+    
+    Ok(VerifyResult { installed: false, detected_path: None })
+}
+
+#[tauri::command]
+pub async fn bootstrapper_open_program(program_id: String, target_node: String, detected_path: String) -> Result<(), String> {
+    use std::process::Command;
+
+    if target_node == "localhost" {
+        let path_obj = std::path::Path::new(&detected_path);
+        if !path_obj.exists() {
+            return Err(format!("El archivo ejecutable no existe en la ruta '{}'. Verifica o vuelve a instalar el programa.", detected_path));
+        }
+
+        let work_dir = path_obj.parent().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
+
+        let mut cmd = Command::new("cmd");
+        #[cfg(target_os = "windows")]
+        {
+            use std::os::windows::process::CommandExt;
+            cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW para la consola cmd intermedia
+        }
+        
+        match cmd
+            .args(&[
+                "/c",
+                "start",
+                "",
+                "/d",
+                &work_dir,
+                &detected_path,
+            ])
+            .spawn()
+        {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Error al abrir: {}", e)),
+        }
+    } else {
+        // Apertura remota via SSH
+        let remote_cmd = format!(
+            "cmd /c start \"\" \"{}\"",
+            detected_path.replace("\"", "\\\"")
+        );
+        let mut cmd = Command::new("ssh");
+        #[cfg(target_os = "windows")]
+        {
+            use std::os::windows::process::CommandExt;
+            cmd.creation_flags(0x08000000);
+        }
+        match cmd
+            .args(&[
+                "-o", "ConnectTimeout=5",
+                "-o", "StrictHostKeyChecking=no",
+                "-o", "BatchMode=yes",
+                &target_node,
+                &remote_cmd,
+            ])
+            .spawn()
+        {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Error al abrir en remoto: {}", e)),
+        }
+    }
+}
+
+#[tauri::command]
+pub async fn bootstrapper_close_program(program_id: String, target_node: String, detected_path: String) -> Result<(), String> {
+    use std::process::Command;
+    let exe_name = std::path::Path::new(&detected_path)
+        .file_stem()
+        .unwrap_or_default()
+        .to_string_lossy();
+        
+    let script = format!("Stop-Process -Name '{}' -Force -ErrorAction SilentlyContinue", exe_name);
+    
+    let mut cmd = Command::new("powershell");
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x08000000);
+    }
+
+    if target_node == "localhost" {
+        match cmd.args(&["-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden", "-Command", &script]).output() {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Failed to close program: {}", e)),
+        }
+    } else {
+        match cmd
+            .args(&[
+                "-ExecutionPolicy", "Bypass",
+                "-WindowStyle", "Hidden",
+                "-Command",
+                &format!("Invoke-Command -ComputerName {} -ScriptBlock {{ {} }}", target_node, script)
+            ]).output() {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Failed to close remote program: {}", e)),
+        }
+    }
+}
+
+#[tauri::command]
+pub async fn bootstrapper_uninstall_program(program_id: String, target_node: String, detected_path: String) -> Result<(), String> {
+    use std::process::Command;
+    let exe_name = std::path::Path::new(&detected_path)
+        .file_stem()
+        .unwrap_or_default()
+        .to_string_lossy();
+        
+    let script = format!(
+        "Stop-Process -Name '{}' -Force -ErrorAction SilentlyContinue; \
+        if (Test-Path '{}') {{ Remove-Item -Path '{}' -Recurse -Force -ErrorAction SilentlyContinue }}; \
+        Write-Host 'Desinstalación completada.'",
+        exe_name,
+        detected_path.replace("'", "''"),
+        detected_path.replace("'", "''")
+    );
+    
+    let mut cmd = Command::new("powershell");
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x08000000);
+    }
+
+    if target_node == "localhost" {
+        match cmd.args(&["-ExecutionPolicy", "Bypass", "-Command", &script]).output() {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Error en desinstalación: {}", e)),
+        }
+    } else {
+        let remote_cmd = format!("powershell -NonInteractive -Command \"{}\"", script.replace("\"", "\\\""));
+        let mut ssh_cmd = Command::new("ssh");
+        #[cfg(target_os = "windows")]
+        {
+            use std::os::windows::process::CommandExt;
+            ssh_cmd.creation_flags(0x08000000);
+        }
+        match ssh_cmd
+            .args(&[
+                "-o", "ConnectTimeout=5",
+                "-o", "StrictHostKeyChecking=no",
+                "-o", "BatchMode=yes",
+                &target_node,
+                &remote_cmd,
+            ])
+            .output()
+        {
+            Ok(_) => Ok(()),
+            Err(e) => Err(format!("Error en desinstalación remota: {}", e)),
+        }
+    }
+}
+
+#[tauri::command]
+pub fn restart_app(app: tauri::AppHandle) {
+    crate::modules::logger::log_info("Restarting app via shortcut...");
+    app.restart();
 }
 
 #[tauri::command]
@@ -1533,8 +1904,8 @@ Get-Process | Where-Object { $_.Name -match 'antigravity|civer' } | Stop-Process
 Write-Host 'Purgando carpetas legacy...'
 Remove-Item -Path "$env:LOCALAPPDATA\Programs\antigravity" -Recurse -Force
 Remove-Item -Path "$env:LOCALAPPDATA\Antigravity Manager Civer Cloud" -Recurse -Force
-Remove-Item -Path "$env:LOCALAPPDATA\Antigravity Civer Cloud IDE" -Recurse -Force
-Remove-Item -Path "C:\Program Files\Antigravity Civer Cloud IDE" -Recurse -Force
+Remove-Item -Path "$env:LOCALAPPDATA\Civer Cloud Manager" -Recurse -Force
+Remove-Item -Path "C:\Program Files\Civer Cloud Manager" -Recurse -Force
 Remove-Item -Path "C:\Program Files\Civer Cloud Manager IDE" -Recurse -Force
 
 Write-Host 'Purgando accesos directos legacy...'

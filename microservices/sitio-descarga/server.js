@@ -3,7 +3,7 @@
  * Routing virtual por hostname (Host header):
  *   ia.civer.cloud           -> ia.html  (Hub IA y landing de Civer)
  *   chat.civer.cloud         -> PROXY a 127.0.0.1:3002 (Antigravity Link Extension)
- *   antigravity.civer.cloud  -> index.html (sitio de descarga Antigravity)
+ *   manager.civer.cloud      -> index.html (sitio de descarga Civer Cloud Manager IDE)
  *
  * Auto-inicio configurado via Task Scheduler de Windows.
  * Ruta: C:\ProyectoCiverCloudUnificado\mesh-shared-vault\sitio-descarga\server.js
@@ -12,9 +12,12 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const PORT = 3000;
 const SERVE_DIR = __dirname;
+const ZIP_FILE = 'Civer-Cloud-Manager-IDE-v5.2.0-Oficial.zip';
+const APP_VERSION = '5.2.0';
 const CHAT_PROXY_TARGET = { host: '127.0.0.1', port: 3002 };
 
 const MIME_TYPES = {
@@ -35,7 +38,14 @@ const MIME_TYPES = {
 function serveHtml(res, filePath) {
   fs.readFile(filePath, (err, data) => {
     if (err) { res.writeHead(404); res.end('Not found'); return; }
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+    res.writeHead(200, { 
+      'Content-Type': 'text/html; charset=utf-8', 
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+      'CDN-Cache-Control': 'no-store',
+      'Cloudflare-CDN-Cache-Control': 'no-store',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    });
     res.end(data);
   });
 }
@@ -105,6 +115,36 @@ const server = http.createServer((req, res) => {
 
   const isRoot = req.url === '/' || req.url === '' || req.url === '/index.html';
 
+  // /hash endpoint - MD5 del instalador activo
+  if (req.url === '/hash' || req.url === '/hash.json') {
+    const zipPath = path.join(SERVE_DIR, ZIP_FILE);
+    fs.stat(zipPath, (err, stat) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ error: 'ZIP no encontrado' }));
+      }
+      const hash = crypto.createHash('md5');
+      const stream = fs.createReadStream(zipPath);
+      stream.on('data', chunk => hash.update(chunk));
+      stream.on('end', () => {
+        const md5 = hash.digest('hex');
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({
+          version: APP_VERSION,
+          file: ZIP_FILE,
+          md5: md5,
+          size_bytes: stat.size,
+          size_mb: (stat.size / 1024 / 1024).toFixed(2) + ' MB',
+          generated: stat.mtime
+        }));
+      });
+      stream.on('error', () => {
+        res.writeHead(500); res.end('Hash error');
+      });
+    });
+    return;
+  }
+
   // ia.civer.cloud -> ia.html
   if (isRoot && host.startsWith('ia.')) {
     return serveHtml(res, path.join(SERVE_DIR, 'ia.html'));
@@ -128,6 +168,11 @@ const server = http.createServer((req, res) => {
       'Content-Type': contentType,
       'Content-Length': stat.size,
       'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+      'CDN-Cache-Control': 'no-store',
+      'Cloudflare-CDN-Cache-Control': 'no-store',
+      'Pragma': 'no-cache',
+      'Expires': '0'
     });
     readStream.pipe(res);
   });
@@ -201,7 +246,7 @@ server.on('upgrade', (req, socket, head) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`[civer.cloud] Servidor activo en http://0.0.0.0:${PORT}`);
-  console.log(`[civer.cloud]   antigravity.civer.cloud -> index.html`);
+  console.log(`[civer.cloud]   manager.civer.cloud -> index.html`);
   console.log(`[civer.cloud]   ia.civer.cloud          -> ia.html`);
   console.log(`[civer.cloud]   chat.civer.cloud        -> PROXY a 127.0.0.1:3002`);
   console.log(`[civer.cloud]   hypervisor.civer.cloud  -> PROXY a 127.0.0.1:3005`);
