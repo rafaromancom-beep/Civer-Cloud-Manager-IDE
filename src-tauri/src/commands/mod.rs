@@ -453,37 +453,31 @@ pub async fn bootstrapper_open_program(program_id: String, target_node: String, 
 
         let work_dir = path_obj.parent().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
 
-        let mut cmd = Command::new("cmd");
-        #[cfg(target_os = "windows")]
-        {
-            use std::os::windows::process::CommandExt;
-            cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW para la consola cmd intermedia
-        }
-        
         let is_cli = program_id.contains("cli") || program_id.contains("sdk") || program_id.contains("rclone") || program_id.contains("kopia") || program_id.contains("tailscale");
         
         let args = if is_cli {
             vec![
-                "/c".to_string(),
-                "start".to_string(),
-                format!("{}", program_id),
-                "cmd".to_string(),
-                "/k".to_string(),
-                format!("cd /d \"{}\" && \"{}\" --help || \"{}\"", work_dir, detected_path, detected_path)
+                "-ExecutionPolicy".to_string(),
+                "Bypass".to_string(),
+                "-WindowStyle".to_string(),
+                "Hidden".to_string(),
+                "-Command".to_string(),
+                format!("Start-Process powershell -ArgumentList '-NoExit', '-Command', 'cd ''{}''; & ''{}'' --help; if (! $?) {{ & ''{}'' }}'", work_dir, detected_path, detected_path)
             ]
         } else {
             vec![
-                "/c".to_string(),
-                "start".to_string(),
-                "".to_string(),
-                "/d".to_string(),
-                work_dir.to_string(),
-                detected_path.to_string(),
+                "-ExecutionPolicy".to_string(),
+                "Bypass".to_string(),
+                "-WindowStyle".to_string(),
+                "Hidden".to_string(),
+                "-Command".to_string(),
+                format!("Start-Process -FilePath ''{}'' -WorkingDirectory ''{}''", detected_path, work_dir)
             ]
         };
 
-        match cmd
+        match std::process::Command::new("powershell")
             .args(&args)
+            .creation_flags(0x08000000)
             .spawn()
         {
             Ok(_) => Ok(()),
